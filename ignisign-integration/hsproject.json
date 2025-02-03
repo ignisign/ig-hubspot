@@ -1,0 +1,12 @@
+{
+  "name": "ignisign-integration",
+  "description": "HubSpot CRM Integration with Ignisign Digital Signature",
+  "packages": [
+    {
+      "name": "ignisign-app",
+      "type": "cms-js-package",
+      "srcPath": "ignisign-app"
+    }
+  ],
+  "platformVersion": "2023.2"
+}

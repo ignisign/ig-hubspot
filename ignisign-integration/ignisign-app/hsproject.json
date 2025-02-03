@@ -1,0 +1,15 @@
+{
+  "name": "ignisign-app",
+  "type": "project",
+  "platformVersion": "2023.2",
+  "srcDir": "src",
+  "extensions": {
+    "crm": {
+      "cards": [
+        {
+          "file": "app/extensions/ignisign-card.json"
+        }
+      ]
+    }
+  }
+} 
