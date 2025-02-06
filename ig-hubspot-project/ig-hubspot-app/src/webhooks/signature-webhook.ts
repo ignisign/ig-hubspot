@@ -1,9 +1,20 @@
-import { hubspot } from '@hubspot/api-client';
+import { Client } from '@hubspot/api-client';
 import { IgnisignWebhookResponse, IGNISIGN_WEBHOOK_ACTION_SIGNATURE_REQUEST } from '../types/ignisign';
+import config from '../config/config';
 
-export const handleSignatureWebhook = async (req: any, res: any) => {
+interface WebhookRequest {
+  body: IgnisignWebhookResponse;
+}
+
+interface WebhookResponse {
+  status: (code: number) => {
+    json: (data: any) => void;
+  };
+}
+
+export const handleSignatureWebhook = async (req: WebhookRequest, res: WebhookResponse) => {
   try {
-    const webhookData = req.body as IgnisignWebhookResponse;
+    const webhookData = req.body;
 
     // Only process COMPLETED events
     if (webhookData.status !== IGNISIGN_WEBHOOK_ACTION_SIGNATURE_REQUEST.COMPLETED) {
@@ -17,7 +28,7 @@ export const handleSignatureWebhook = async (req: any, res: any) => {
     }
 
     // Update HubSpot contact properties
-    const hubspotClient = new hubspot.Client({ accessToken: process.env.HUBSPOT_ACCESS_TOKEN });
+    const hubspotClient = new Client({ accessToken: config.hubspotAccessToken });
     
     await hubspotClient.crm.contacts.basicApi.update(contactId, {
       properties: {
@@ -29,6 +40,6 @@ export const handleSignatureWebhook = async (req: any, res: any) => {
     res.status(200).json({ message: 'Webhook processed successfully' });
   } catch (error) {
     console.error('Error processing signature webhook:', error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
   }
 }; 

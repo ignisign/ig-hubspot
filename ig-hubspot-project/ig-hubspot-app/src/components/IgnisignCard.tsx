@@ -100,12 +100,17 @@ export const IgnisignCard = ({ context }: Props) => {
       });
     } catch (error) {
       hubspot.ui.showToast({
-        message: `Error creating signature request: ${error.message}`,
+        message: `Error creating signature request: ${error instanceof Error ? error.message : 'Unknown error'}`,
         type: 'error'
       });
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleFileInputChange = (e: { target: { value: string } }) => {
+    // This is just a placeholder to satisfy the type system
+    // The actual file handling is done in handleFileUpload
   };
 
   return (
@@ -133,7 +138,8 @@ export const IgnisignCard = ({ context }: Props) => {
         type="file"
         label="Upload Documents"
         name="documents"
-        onChange={handleFileUpload}
+        onChange={handleFileInputChange}
+        onInput={handleFileUpload}
         multiple
         required
       />
