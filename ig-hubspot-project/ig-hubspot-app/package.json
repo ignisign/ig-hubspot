@@ -1,0 +1,26 @@
+{
+  "name": "ig-hubspot-app",
+  "version": "0.1.0",
+  "type": "module",
+  "dependencies": {
+    "@hubspot/cms-components": "latest",
+    "@hubspot/ui-extensions": "latest",
+    "@types/node": "^18.0.0",
+    "@types/react": "^18.0.0",
+    "dayjs": "^1.11.11",
+    "prop-types": "^15.8.1",
+    "react": "^18.1.0",
+    "typescript": "^4.9.0"
+  },
+  "devDependencies": {
+    "@hubspot/cms-dev-server": "latest",
+    "@testing-library/react": "^13.4.0",
+    "@vitejs/plugin-react": "^2.1.0",
+    "jsdom": "^20.0.1",
+    "vitest": "^0.24.3"
+  },
+  "scripts": {
+    "start": "hs-cms-dev-server .",
+    "test": "vitest"
+  }
+}

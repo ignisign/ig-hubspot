@@ -1,5 +1,15 @@
 {
-  "name": "ignisign-app",
-  "srcDir": "src",
-  "platformVersion": "2023.2"
-}
+  "name": "ig-hubspot",
+  "type": "project",
+  "platformVersion": "2023.2",
+  "srcDir": "ig-hubspot-project/ig-hubspot-app",
+  "extensions": {
+    "crm": {
+      "cards": [
+        {
+          "file": "src/extensions/ig-hubspot-card.json"
+        }
+      ]
+    }
+  }
+} 

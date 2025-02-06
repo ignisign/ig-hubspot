@@ -1,0 +1,12 @@
+{
+  "type": "crm-card",
+  "data": {
+    "title": "Ignisign Signature Request",
+    "uid": "ignisign_signature_request",
+    "location": "crm.record.tab",
+    "module": {
+      "file": "IgnisignCard.jsx"
+    },
+    "objectTypes": [{ "name": "contacts" }]
+  }
+} 
