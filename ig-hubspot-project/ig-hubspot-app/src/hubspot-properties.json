@@ -1,0 +1,51 @@
+{
+  "name": "ignisign_properties",
+  "label": "Ignisign Properties",
+  "properties": [
+    {
+      "name": "ignisign_signature_request_id",
+      "label": "Ignisign Signature Request ID",
+      "description": "The ID of the latest signature request sent to this contact",
+      "groupName": "ignisign_information",
+      "type": "string",
+      "fieldType": "text",
+      "formField": true
+    },
+    {
+      "name": "ignisign_signature_status",
+      "label": "Ignisign Signature Status",
+      "description": "The status of the latest signature request",
+      "groupName": "ignisign_information",
+      "type": "enumeration",
+      "fieldType": "select",
+      "options": [
+        {
+          "label": "Pending",
+          "value": "pending"
+        },
+        {
+          "label": "Completed",
+          "value": "completed"
+        },
+        {
+          "label": "Expired",
+          "value": "expired"
+        },
+        {
+          "label": "Cancelled",
+          "value": "cancelled"
+        }
+      ],
+      "formField": true
+    },
+    {
+      "name": "ignisign_signature_completed_at",
+      "label": "Ignisign Signature Completed At",
+      "description": "When the latest signature request was completed",
+      "groupName": "ignisign_information",
+      "type": "datetime",
+      "fieldType": "date",
+      "formField": true
+    }
+  ]
+} 
