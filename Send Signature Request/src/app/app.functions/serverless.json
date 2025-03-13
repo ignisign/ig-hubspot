@@ -1,0 +1,28 @@
+{
+  "appFunctions": {
+    "fetchContact": {
+      "file": "get-contact-details.js",
+      "secrets": []
+    },
+    "createSigner": {
+      "file": "create-signer.js",
+      "secrets": []
+    },
+    "documentDetial": {
+      "file": "get-document-details.js",
+      "secrets": []
+    },
+    "sendSignature": {
+      "file": "send-signature-request.js",
+      "secrets": []
+    },
+    "updateContact": {
+      "file": "update-contact.js",
+      "secrets": []
+    },
+    "checkSignatureStatus": {
+      "file": "check-signature-status.js",
+      "secrets": []
+    }
+  }
+}
