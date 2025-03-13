@@ -60,7 +60,7 @@ const fetchFileDetails = async (fileId) => {
     
     const response = await axios.get(`https://api.hubapi.com/files/v3/files/${fileId}`, {
       headers: {
-        // Authorization: `Bearer Token`,
+        Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
         "Content-Type": "application/json",
       },
     });

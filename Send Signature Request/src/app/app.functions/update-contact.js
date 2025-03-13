@@ -23,7 +23,7 @@ exports.main = async (context) => {
       payload,
       {
         headers: {
-          // Authorization: `Bearer Token`, // Use environment variable
+          Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`, 
           "Content-Type": "application/json",
         },
       }
