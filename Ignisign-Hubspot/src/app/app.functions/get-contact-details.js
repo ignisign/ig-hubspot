@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 exports.main = async (context = {}) => {
-  const LOG_ACTIVATED = false;
+  const LOG_ACTIVATED = true;
   const contactID = context?.parameters?.contactID;
 
   if (!contactID)
@@ -20,7 +20,7 @@ exports.main = async (context = {}) => {
       `https://api.hubapi.com/crm/v3/objects/contacts/${contactID}?${propertiesQuery}`,
       {
         headers: {
-          Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
+          Authorization: `Bearer ${process.env.HUBSPOT_TOKEN}`,
           "Content-Type": "application/json"
         }
       }

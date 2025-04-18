@@ -1,11 +1,10 @@
 const axios = require('axios');
 
 exports.main = async (context) => {
-    const LOG_ACTIVATED = false;
+    const LOG_ACTIVATED = true;
     
     if (LOG_ACTIVATED)
         console.log("Received Parameters:", context.parameters);
-    
 
     try {
 

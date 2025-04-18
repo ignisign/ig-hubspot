@@ -2,7 +2,7 @@ const axios = require('axios');
 
 exports.main = async (context) => {
   try {
-    const LOG_ACTIVATED = false;
+    const LOG_ACTIVATED = true;
     //const { firstname, lastname, email, phone } = context.parameters;
     const firstname = context.parameters.firstname;
     const lastname = context.parameters.lastname;

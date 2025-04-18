@@ -2,7 +2,7 @@ const axios = require("axios");
 
 exports.main = async (context) => {
   try {
-    const LOG_ACTIVATED = false;
+    const LOG_ACTIVATED = true;
     let fileIds = context?.parameters?.document;
 
     // Validate input
@@ -68,7 +68,7 @@ const fetchFileDetails = async (fileId) => {
     
     const response = await axios.get(`https://api.hubapi.com/files/v3/files/${fileId}`, {
       headers: {
-        Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
+        Authorization: `Bearer ${process.env.HUBSPOT_TOKEN}`,
         "Content-Type": "application/json",
       },
     });

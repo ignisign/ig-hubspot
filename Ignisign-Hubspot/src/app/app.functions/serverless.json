@@ -2,27 +2,27 @@
   "appFunctions": {
     "fetchContact": {
       "file": "get-contact-details.js",
-      "secrets": []
+      "secrets": ["HUBSPOT_TOKEN"]
     },
     "createSigner": {
       "file": "create-signer.js",
-      "secrets": []
+      "secrets": ["HUBSPOT_TOKEN"]
     },
     "documentDetial": {
       "file": "get-document-details.js",
-      "secrets": []
+      "secrets": ["HUBSPOT_TOKEN"]
     },
     "sendSignature": {
       "file": "send-signature-request.js",
-      "secrets": []
+      "secrets": ["HUBSPOT_TOKEN"]
     },
     "updateContact": {
       "file": "update-contact.js",
-      "secrets": []
+      "secrets": ["HUBSPOT_TOKEN"]
     },
     "checkSignatureStatus": {
       "file": "check-signature-status.js",
-      "secrets": []
+      "secrets": ["HUBSPOT_TOKEN"]
     }
   }
 }

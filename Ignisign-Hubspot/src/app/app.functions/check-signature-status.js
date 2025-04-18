@@ -9,7 +9,7 @@ exports.main = async (context) => {
   const inputValue = context.parameters.input_value;
   
   try {
-    const LOG_ACTIVATED = false;
+    const LOG_ACTIVATED = true;
     
     if (LOG_ACTIVATED)
         console.log("Checking signature status for:", inputValue);
