@@ -178,7 +178,6 @@ const Extension = ({ context, runServerless, sendAlert }) => {
     }
   };
 
-
   const handleClick = async () => {
     setCheckloading(true);
     try {
