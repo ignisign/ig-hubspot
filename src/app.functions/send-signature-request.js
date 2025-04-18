@@ -9,7 +9,7 @@ exports.main = async (context) => {
 
     try {
 
-        const appSecret = process.env.IGNISIGN_APP_SECRET
+        const appSecret = context.secrets.IGNISIGN_APP_SECRET
 
         const signatureMethod   = context.parameters.signatureMethod || "SIMPLE_STD"
         const document          = context.parameters.documentData;
