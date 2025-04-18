@@ -13,7 +13,7 @@
     "crm": {
       "cards": [
         {
-          "file": "extensions/send-signature-request-card.json"
+          "file": "src/app/extensions/send-signature-request-card.json"
         }
       ]
     }
