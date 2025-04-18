@@ -1,13 +1,14 @@
 const axios = require("axios");
 
 exports.main = async (context) => {
-    const contactID = context.parameters.contact_id;
-    if (!contactID) {
-      return {
-        success: false,
-        message: "Missing required parameters: contactID",
-      };
-    }  
+  const LOG_ACTIVATED = false;
+  const contactID = context.parameters.contact_id;
+  if (!contactID) {
+    return {
+      success: false,
+      message: "Missing required parameters: contactID",
+    };
+  }  
 
   try {
     const payload = {
@@ -17,6 +18,9 @@ exports.main = async (context) => {
         document_ids: context.parameters.documents_ids,
       },
     };
+
+    if (LOG_ACTIVATED)
+        console.log("Updating contact with payload:", JSON.stringify(payload, null, 2));
 
     const response = await axios.patch(
       `https://api.hubapi.com/crm/v3/objects/contacts/${contactID}`,
@@ -29,7 +33,8 @@ exports.main = async (context) => {
       }
     );
 
-    console.log("HubSpot API Response:", response.data);
+    if (LOG_ACTIVATED)
+        console.log("HubSpot API Response:", response.data);
 
     return {
       success: true,

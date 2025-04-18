@@ -6,7 +6,7 @@
     },
     "createSigner": {
       "file": "create-signer.js",
-      "secrets": []
+      "secrets": ["IGNISIGN_APP_SECRET", "IGNISIGN_APP_ID", "IGNISIGN_APP_ENV"]
     },
     "documentDetial": {
       "file": "get-document-details.js",
@@ -14,7 +14,7 @@
     },
     "sendSignature": {
       "file": "send-signature-request.js",
-      "secrets": []
+      "secrets": ["IGNISIGN_APP_SECRET", "IGNISIGN_APP_ID", "IGNISIGN_APP_ENV"]
     },
     "updateContact": {
       "file": "update-contact.js",
@@ -22,7 +22,7 @@
     },
     "checkSignatureStatus": {
       "file": "check-signature-status.js",
-      "secrets": []
+      "secrets": ["IGNISIGN_APP_SECRET", "IGNISIGN_APP_ID", "IGNISIGN_APP_ENV"]
     }
   }
 }

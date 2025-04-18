@@ -1,17 +1,23 @@
 const axios = require("axios");
 
 exports.main = async (context = {}) => {
-  const contactID = context.parameters.contactID;
+  const LOG_ACTIVATED = false;
+  const contactID = context?.parameters?.contactID;
 
-  if (!contactID) {
+  if (!contactID)
     return { success: false, message: "No contact ID provided." };
-  }
 
   //Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
 
+  const propertiesFields  = ["firstname", "lastname", "email", "title", "document", "signerid", "signature_request_id", "document_ids"]
+  const propertiesQuery   = propertiesFields.map(field => `properties=${field}`).join("&")
+
   try {
+    if (LOG_ACTIVATED)
+        console.log("Fetching contact details for contact ID:", contactID);
+
     const response = await axios.get(
-      `https://api.hubapi.com/crm/v3/objects/contacts/${contactID}?properties=firstname&properties=lastname&properties=email&properties=title&properties=document&properties=signerid&properties=signature_request_id&properties=document_ids`,
+      `https://api.hubapi.com/crm/v3/objects/contacts/${contactID}?${propertiesQuery}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
@@ -20,12 +26,15 @@ exports.main = async (context = {}) => {
       }
     );
 
+    if (LOG_ACTIVATED)
+        console.log("Contact details fetched successfully:", response?.data);
+
     return {
       success: true,
-      contact: response.data.properties
+      contact: response?.data?.properties
     };
   } catch (error) {
-    console.error("Error fetching contact:", error.response?.data || error.message);
-    return { success: false, message: "Error fetching contact.", error: error.message };
+    console.error("Error fetching contact:", error?.response?.data || error?.message);
+    return { success: false, message: "Error fetching contact.", error: error?.message };
   }
 };

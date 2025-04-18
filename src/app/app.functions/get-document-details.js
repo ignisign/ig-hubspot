@@ -2,7 +2,8 @@ const axios = require("axios");
 
 exports.main = async (context) => {
   try {
-    let fileIds = context.parameters.document;
+    const LOG_ACTIVATED = false;
+    let fileIds = context?.parameters?.document;
 
     // Validate input
     if (!fileIds || (Array.isArray(fileIds) && fileIds.length === 0)) {
@@ -12,17 +13,22 @@ exports.main = async (context) => {
     // Ensure fileIds is a string
     if (Array.isArray(fileIds)) {
       fileIds = fileIds.join(";");
+
     } else if (typeof fileIds !== "string") {
       return { success: false, message: "Invalid fileIds format. Expected a string or an array." };
     }
 
     // Convert fileIds string into an array
     const fileIdsArray = fileIds.split(";").map(id => id.trim()).filter(Boolean);
+    if (LOG_ACTIVATED)
     console.log("Processing file IDs:", fileIdsArray);
 
     if (fileIdsArray.length === 0) {
       return { success: false, message: "No valid file IDs found." };
     }
+
+    if (LOG_ACTIVATED)
+        console.log("Processing file IDs:", fileIdsArray);
 
     // Fetch file details
     const fileDetailsPromises = fileIdsArray.map(fetchFileDetails);
@@ -39,8 +45,10 @@ exports.main = async (context) => {
       .filter(result => result.status === "rejected")
       .map(result => result.reason);
 
-    console.log("File Details:", fileDetailsList);
-    console.log("Errors:", errors);
+    if (LOG_ACTIVATED){
+        console.log("File Details:", fileDetailsList);
+        console.log("Errors:", errors);
+    }
 
     return {
       success: errors.length === 0,
@@ -70,14 +78,14 @@ const fetchFileDetails = async (fileId) => {
     }
 
     return {
-      id: fileId,
-      name: response.data.name || "Unknown",
-      path: response.data.path || "Unknown",
-      encoding: response.data.encoding || "Unknown",
-      type: response.data.type || "Unknown",
-      extension: response.data.extension || "Unknown",
-      defaultHostingUrl: response.data.defaultHostingUrl || "Unknown",
-      url: response.data.url || "Unknown",
+      id                : fileId,
+      name              : response?.data?.name              || "Unknown",
+      path              : response?.data?.path              || "Unknown",
+      encoding          : response?.data?.encoding          || "Unknown",
+      type              : response?.data?.type              || "Unknown",
+      extension         : response?.data?.extension         || "Unknown",
+      defaultHostingUrl : response?.data?.defaultHostingUrl || "Unknown",
+      url               : response?.data?.url               || "Unknown",
     };
   } catch (error) {
     console.error(`Error fetching details for file ID ${fileId}:`, error.response ? error.response.data : error.message);
