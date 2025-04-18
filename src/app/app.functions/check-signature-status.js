@@ -2,9 +2,9 @@ const axios = require('axios');
 
 exports.main = async (context) => {
 
-  const appID = context.secrets?.IGNISIGN_APP_ID
-  const appEnv = context.secrets?.IGNISIGN_APP_ENV
-  const appSecret = context.secrets?.IGNISIGN_APP_SECRET
+  const appID     = 'TOTO'; //context.secrets?.IGNISIGN_APP_ID
+  const appEnv    = 'TOTO'; //context.secrets?.IGNISIGN_APP_ENV
+  const appSecret = 'TOTO'; //context.secrets?.IGNISIGN_APP_SECRET
 
   const inputValue = context.parameters.input_value;
   

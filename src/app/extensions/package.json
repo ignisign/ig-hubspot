@@ -1,7 +1,7 @@
 {
-  "name": "hubspot-example-extension",
-  "version": "0.1.0",
-  "author": "HubSpot",
+  "name": "hubspot-ignisign-extension",
+  "version": "0.9.0",
+  "author": "Ignisign",
   "license": "MIT",
   "dependencies": {
     "@hubspot/ui-extensions": "latest",
