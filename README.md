@@ -15,3 +15,7 @@
 
 
 
+,
+  "webhooks": {
+    "file": "./webhooks/webhooks.json"
+  }

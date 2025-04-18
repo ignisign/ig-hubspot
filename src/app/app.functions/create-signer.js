@@ -8,9 +8,9 @@ exports.main = async (context) => {
     const lastname = context.parameters.lastname;
     const email = context.parameters.email;
     
-    const appID = context.secrets.IGNISIGN_APP_ID
-    const appEnv = context.secrets.IGNISIGN_APP_ENV
-    const appSecret = context.secrets.IGNISIGN_APP_SECRET
+    const appID = context.secrets?.IGNISIGN_APP_ID
+    const appEnv = context.secrets?.IGNISIGN_APP_ENV
+    const appSecret = context.secrets?.IGNISIGN_APP_SECRET
 
 
     const payload = {
