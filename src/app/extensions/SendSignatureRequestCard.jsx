@@ -1,9 +1,50 @@
 import React, { useState } from "react";
-import { Divider, Button, Text, Flex, hubspot , Input, Select, Option, FileUpload } from "@hubspot/ui-extensions";
+import { Divider, Button, Text, Flex, hubspot , Input, Select, Option } from "@hubspot/ui-extensions";
 
 hubspot.extend(({ context, runServerlessFunction, actions }) => (
   <Extension context={context} runServerless={runServerlessFunction} sendAlert={actions.addAlert} />
 ));
+
+
+
+const FileBase64 = ({ multiple, onDone }) => {
+
+  const [files, setFiles] = useState([]);
+
+  const handleChange = (e) => {
+    const files = Array.from(e.target.files);
+    setFiles(files);
+    const allFiles = [];
+    for (var i = 0; i < files.length; i++) {
+      let file = files[i];
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        let fileInfo = {
+          name: file.name,
+          type: file.type,
+          size: Math.round(file.size / 1000) + ' kB',
+          base64: reader.result,
+          file: file,
+        };
+        allFiles.push(fileInfo);
+        if(allFiles.length == files.length){
+          if(multiple) 
+            onDone(allFiles);
+          else 
+            onDone(allFiles[0]);
+        }
+      }
+    }
+  }
+
+  return (
+    <input type="file" onChange={handleChange} multiple={multiple} />
+  );
+};
+
+
+
 
 const Extension = ({ context, runServerless, sendAlert }) => {
   const [contact, setContact]           = useState({});
@@ -253,19 +294,14 @@ const Extension = ({ context, runServerless, sendAlert }) => {
         </Flex>
 
         <Flex gap="small">
-          <FileUpload
-            label="Upload a file"
-            onUpload={async (file) => {
-              try {
-                const base64 = await convertToBase64(file);
-                setFileBase64(base64);
-                console.log("File converted to base64:", base64);
-              } catch (error) {
-                console.error("Error converting file to base64:", error);
-                sendAlert({ type: "error", message: "Failed to convert file to base64" });
-              }
+          <FileBase64
+            multiple={false}
+            onDone={(file) => {
+              setFileBase64(file.base64);
+              console.log("File converted to base64:", file.base64);
             }}
           />
+         
         </Flex>
 
         <Button 
@@ -298,7 +334,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
     <>
       <Flex direction="column" gap="xl">
         <ContactDetails />
-        <Flex gap="small">
+        <Flex direction="row" gap="small">
           <SendSignatureRequest />
           <LastSignatureRequest />
         </Flex>
