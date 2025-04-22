@@ -1,11 +1,11 @@
 const axios = require("axios");
 
 exports.main = async (context = {}) => {
-  const LOG_ACTIVATED = false;
+  const LOG_ACTIVATED = true;
   const contactID = context?.parameters?.contactID;
 
   if (!contactID)
-    return { success: false, message: "No contact ID provided." };
+    return { success: false, message: "Get Contact Details: No contact ID provided." };
 
   //Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
 

@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 exports.main = async (context) => {
-  const LOG_ACTIVATED = false;
+  const LOG_ACTIVATED = true;
   const contactID = context.parameters.contact_id;
   if (!contactID) {
     return {

@@ -2,7 +2,7 @@ const axios = require("axios");
 
 exports.main = async (context) => {
   try {
-    const LOG_ACTIVATED = false;
+    const LOG_ACTIVATED = true;
     let fileIds = context?.parameters?.document;
 
     // Validate input

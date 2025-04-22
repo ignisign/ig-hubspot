@@ -2,15 +2,15 @@ const axios = require('axios');
 
 exports.main = async (context) => {
   try {
-    const LOG_ACTIVATED = false;
+    const LOG_ACTIVATED = true;
     //const { firstname, lastname, email, phone } = context.parameters;
     const firstname = context.parameters.firstname;
-    const lastname = context.parameters.lastname;
-    const email = context.parameters.email;
+    const lastname  = context.parameters.lastname;
+    const email     = context.parameters.email;
     
-    const appID = 'TOTO'; //context.secrets?.IGNISIGN_APP_ID
-    const appEnv = 'TOTO'; //context.secrets?.IGNISIGN_APP_ENV
-    const appSecret = 'TOTO'; //context.secrets?.IGNISIGN_APP_SECRET
+    const appID     = context.secrets?.IGNISIGN_APP_ID
+    const appEnv    = context.secrets?.IGNISIGN_APP_ENV
+    const appSecret = context.secrets?.IGNISIGN_APP_SECRET
 
 
     const payload = {

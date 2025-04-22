@@ -6,11 +6,10 @@ hubspot.extend(({ context, runServerlessFunction, actions }) => (
 ));
 
 const Extension = ({ context, runServerless, sendAlert }) => {
-  const [contact, setContact] = useState({});
-  const [singerid, setSingerid] = useState("");
-  //const [document, setDocument] = useState([]);
-  const [signatureid, setSignatureid] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [contact, setContact]           = useState({});
+  const [signerid, setSignerid]         = useState("");
+  const [signatureid, setSignatureid]   = useState("");
+  const [loading, setLoading]           = useState(false);
   const [checkloading, setCheckloading] = useState(false);
   const contactId = context.crm?.objectId;
   const [inputValue, setInputValue] = useState("");
@@ -65,7 +64,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
 
       if (response?.success) {
         sendAlert({ type: "success", message: `Signer successfully! ID: ${response.signerId}` });
-        setSingerid(response.signerId); 
+        setSignerid(response.signerId); 
 
         await documentDetial(contactData.document , contactData , response.signerId);
 
@@ -230,15 +229,15 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   return (
     <>
       <Text format={{ fontWeight: "bold" }}>Press the button to send the signature request.</Text>
-      {/* <Text>Contact ID: {contactId || "Not available"}</Text>
+      <Text>Contact ID: {contactId || "Not available"}</Text>
       <Text>First Name: {contact.firstname || "Not available"}</Text>
       <Text>Last Name: {contact.lastname || "Not available"}</Text>
       <Text>Email: {contact.email || "Not available"}</Text>
       <Text>Document: {contact.document || "Not available"}</Text>
       <Text>Title: {contact.title || "Not available"}</Text>
-      <Text>Signer ID: {singerid || "Not available"}</Text>
+      <Text>Signer ID: {signerid || "Not available"}</Text>
       <Text>Signature ID: {signatureid || "Not available"}</Text>
-      */}
+      *
       <Divider />
       <Flex gap="small">
         <Button onClick={fetchContact} variant="primary" disabled={loading}>
@@ -246,14 +245,14 @@ const Extension = ({ context, runServerless, sendAlert }) => {
         </Button>
       </Flex>
       <Divider />
-      <Text format={{ fontWeight: "bold" }}>Copy the signature request ID, paste it into the input field below, and click on "Check Signature Status." The response will appear at the bottom along with the status.</Text>
+      {/* <Text format={{ fontWeight: "bold" }}>Copy the signature request ID, paste it into the input field below, and click on "Check Signature Status." The response will appear at the bottom along with the status.</Text>
       <Flex direction="row" align="end" gap="small">
         <Input name="text" label="Send" onInput={(t) => setInputValue(t)} />
         <Button type="submit" variant="destructive" onClick={handleClick} disabled={checkloading}>
         {checkloading ? "Checking..." : "Check Signature Status"}
         </Button>
       </Flex>
-      <Text format={{ fontWeight: "bold" }}>Signature Status: {signatureStatus || "Not available"}</Text>
+      <Text format={{ fontWeight: "bold" }}>Signature Status: {signatureStatus || "Not available"}</Text> */}
     </>
   );
 };

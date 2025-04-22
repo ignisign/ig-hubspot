@@ -1,7 +1,7 @@
 {
   "type": "crm-card",
   "data": {
-    "title": "Send a Signature Request with Ignisign",
+    "title": "Send a Signature Request with IgniSign",
     "uid": "ignisign_hubspot_card",
     "location": "crm.record.tab",
     "module": {

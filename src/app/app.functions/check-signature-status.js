@@ -2,14 +2,14 @@ const axios = require('axios');
 
 exports.main = async (context) => {
 
-  const appID     = 'TOTO'; //context.secrets?.IGNISIGN_APP_ID
-  const appEnv    = 'TOTO'; //context.secrets?.IGNISIGN_APP_ENV
-  const appSecret = 'TOTO'; //context.secrets?.IGNISIGN_APP_SECRET
+  const appID     = context.secrets?.IGNISIGN_APP_ID
+  const appEnv    = context.secrets?.IGNISIGN_APP_ENV
+  const appSecret = context.secrets?.IGNISIGN_APP_SECRET
 
   const inputValue = context.parameters.input_value;
   
   try {
-    const LOG_ACTIVATED = false;
+    const LOG_ACTIVATED = true;
     
     if (LOG_ACTIVATED)
         console.log("Checking signature status for:", inputValue);

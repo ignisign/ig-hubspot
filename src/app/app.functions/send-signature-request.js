@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 exports.main = async (context) => {
-    const LOG_ACTIVATED = false;
+    const LOG_ACTIVATED = true;
     
     if (LOG_ACTIVATED)
         console.log("Received Parameters:", context.parameters);
@@ -9,7 +9,7 @@ exports.main = async (context) => {
 
     try {
 
-        const appSecret = 'TOTO'; //context.secrets?.IGNISIGN_APP_SECRET
+        const appSecret = context.secrets?.IGNISIGN_APP_SECRET
 
         const signatureMethod   = context.parameters.signatureMethod || "SIMPLE_STD"
         const document          = context.parameters.documentData;
