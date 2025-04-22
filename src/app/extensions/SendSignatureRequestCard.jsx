@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Divider, Button, Text, Flex, hubspot , Input } from "@hubspot/ui-extensions";
+import { Divider, Button, Text, Flex, hubspot , Input, Select, Option, FileUpload } from "@hubspot/ui-extensions";
 
 hubspot.extend(({ context, runServerlessFunction, actions }) => (
   <Extension context={context} runServerless={runServerlessFunction} sendAlert={actions.addAlert} />
@@ -11,6 +11,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   const [signatureid, setSignatureid]   = useState("");
   const [loading, setLoading]           = useState(false);
   const [checkloading, setCheckloading] = useState(false);
+  const [fileBase64, setFileBase64]     = useState("");
   const contactId = context.crm?.objectId;
   const [inputValue, setInputValue] = useState("");
   const [signatureStatus, setSignatureStatus] = useState("");
@@ -213,45 +214,98 @@ const Extension = ({ context, runServerless, sendAlert }) => {
       setCheckloading(false);
     }
   };
-  
-  return (
-    <>
-      
-      <Text>Contact ID: {contactId || "Not available"}</Text>
-      <Flex gap="small">
-        <Text>First Name: {contact.firstname || "Not available"}</Text>
-        <Text>Last Name: {contact.lastname || "Not available"}</Text>
-        <Text>Email: {contact.email || "Not available"}</Text>
-      </Flex>
-      
-      <Flex gap="small">
-        <Text>Title: {contact.title || "Not available"}</Text>
-      </Flex>
-     
-      <Text>Document: {contact.document || "Not available"}</Text>
-      
-      <Text>Signer ID: {signerid || "Not available"}</Text>
-      <Text>Signature ID: {signatureid || "Not available"}</Text>
-      *
-      <Divider />
 
-      <Text format={{ fontWeight: "bold" }}>Press the button to send the signature request.</Text>
-      <Flex gap="small">
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        // Get the base64 string by removing the prefix (data:file/type;base64,)
+        const base64String = reader.result.split(',')[1];
+        resolve(base64String);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+  
+
+  const ContactDetails = () => {
+    return (
+      <>
+        <Text>Contact ID: {contactId || "Not available"}</Text>
+        <Flex gap="small">
+          <Text>First Name: {contact.firstname || "Not available"}</Text>
+          <Text>Last Name: {contact.lastname || "Not available"}</Text>
+          <Text>Email: {contact.email || "Not available"}</Text>
+        </Flex>
+      
+      </>
+    )
+  }
+
+  const SendSignatureRequest = () => {
+    return (
+      <>
+        <Flex gap="small">
+          <Text>Title: {contact.title || "Not available"}</Text>
+        </Flex>
+
+        <Flex gap="small">
+          <FileUpload
+            label="Upload a file"
+            onUpload={async (file) => {
+              try {
+                const base64 = await convertToBase64(file);
+                setFileBase64(base64);
+                console.log("File converted to base64:", base64);
+              } catch (error) {
+                console.error("Error converting file to base64:", error);
+                sendAlert({ type: "error", message: "Failed to convert file to base64" });
+              }
+            }}
+          />
+        </Flex>
+
         <Button 
             onClick={fetchContact} variant="primary" disabled={loading} loading={loading}>
             Send Signature Request
         </Button>
-      </Flex>
-      <Divider />
-      <Flex gap="small">
+      
+      </>
+    )
+  }
+
+
+  const LastSignatureRequest = () => {
+    return (
+      <>
+       <Flex gap="small">
         <Button
          variant="primary" disabled={loading} 
          onClick={checkSignatureStatus}  >
           Check Signature Status
         </Button>
       </Flex>
+      </>
+    )
+  }
 
 
+
+  return (
+    <>
+      <Flex direction="column" gap="xl">
+        <ContactDetails />
+        <Flex gap="small">
+          <SendSignatureRequest />
+          <LastSignatureRequest />
+        </Flex>
+      </Flex>
+     
+     
+     
 
       <Divider />
       {/* <Text format={{ fontWeight: "bold" }}>Copy the signature request ID, paste it into the input field below, and click on "Check Signature Status." The response will appear at the bottom along with the status.</Text>

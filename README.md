@@ -12,6 +12,8 @@
    - IGNISIGN_APP_ID
    - IGNISIGN_APP_ENV
 
+add the secret to access to the HUBSPOT api : "HUBSPOT_ACCESS_TOKEN" (use desciption here : https://developers.hubspot.com/docs/guides/apps/private-apps/overview#make-api-calls-with-your-app-s-access-token)
+
 
 
 
