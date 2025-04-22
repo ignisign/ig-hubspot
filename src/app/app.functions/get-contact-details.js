@@ -20,7 +20,7 @@ exports.main = async (context = {}) => {
       `https://api.hubapi.com/crm/v3/objects/contacts/${contactID}?${propertiesQuery}`,
       {
         headers: {
-          Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
+          Authorization: `Bearer ${process.env.HUBSPOT_TOKEN}`,
           "Content-Type": "application/json"
         }
       }
