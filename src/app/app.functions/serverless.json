@@ -2,27 +2,27 @@
   "appFunctions": {
     "fetchContact": {
       "file": "get-contact-details.js",
-      "secrets": []
+      "secrets": [  "IGNISIGN_APP_ID", "IGNISIGN_APP_ENV", "IGNISIGN_APP_SECRET", "HUBSPOT_ACCESS_TOKEN" ]
     },
     "createSigner": {
       "file": "create-signer.js",
-      "secrets": []
+      "secrets": [ "IGNISIGN_APP_ID", "IGNISIGN_APP_ENV", "IGNISIGN_APP_SECRET", "HUBSPOT_ACCESS_TOKEN" ]
     },
     "documentDetial": {
       "file": "get-document-details.js",
-      "secrets": []
+      "secrets": [ "IGNISIGN_APP_ID", "IGNISIGN_APP_ENV", "IGNISIGN_APP_SECRET", "HUBSPOT_ACCESS_TOKEN" ]
     },
     "sendSignature": {
       "file": "send-signature-request.js",
-      "secrets": []
+      "secrets": [ "IGNISIGN_APP_ID", "IGNISIGN_APP_ENV", "IGNISIGN_APP_SECRET", "HUBSPOT_ACCESS_TOKEN" ]
     },
     "updateContact": {
       "file": "update-contact.js",
-      "secrets": []
+      "secrets": [ "IGNISIGN_APP_ID", "IGNISIGN_APP_ENV", "IGNISIGN_APP_SECRET", "HUBSPOT_ACCESS_TOKEN"  ]
     },
     "checkSignatureStatus": {
       "file": "check-signature-status.js",
-      "secrets": []
+      "secrets": [ "IGNISIGN_APP_ID", "IGNISIGN_APP_ENV", "IGNISIGN_APP_SECRET", "HUBSPOT_ACCESS_TOKEN"  ]
     }
   }
 }

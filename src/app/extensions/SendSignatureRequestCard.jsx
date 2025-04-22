@@ -33,9 +33,9 @@ const Extension = ({ context, runServerless, sendAlert }) => {
       if (response?.success && response.contact) {
         setContact(response.contact); // Update state
         sendAlert({ type: "success", message: "Contact data fetched successfully!" });
-
+        console.log('response.contact---- ', response.contact);
         // ✅ Pass data directly instead of using state
-        await createSigner(response.contact);
+        // await createSigner(response.contact);
       } else {
         sendAlert({ type: "error", message: response.message || "Failed to fetch contact data!" });
       }
@@ -66,7 +66,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
         sendAlert({ type: "success", message: `Signer successfully! ID: ${response.signerId}` });
         setSignerid(response.signerId); 
 
-        await documentDetial(contactData.document , contactData , response.signerId);
+        await documentDetail(contactData.document , contactData , response.signerId);
 
       } else {
         sendAlert({ type: "error", message: response.message || "Failed to create signer!" });
@@ -79,12 +79,12 @@ const Extension = ({ context, runServerless, sendAlert }) => {
     }
   };
 
-  const documentDetial = async (document , contactData , signerId) => {
+  const documentDetail = async (document , contactData , signerId) => {
     setLoading(true);
     console.log('contactData.document---- ' , contactData.document);
     try {
       const { response } = await runServerless({
-        name: "documentDetial",
+        name: "documentDetail",
         parameters: {
           document: contactData.document,
         },
@@ -94,8 +94,8 @@ const Extension = ({ context, runServerless, sendAlert }) => {
         sendAlert({ type: "success", message: `Document Details successfully! ID: ${response.documentDetails}` });
         //setDocument(response.documentDetails);
         console.log('response.documentDetails---- ' , response.documentDetails);
-        console.log('documentDetial---document----- ', document);
-        console.log('documentDetial---contactData----- ', contactData);
+        console.log('documentDetail---document----- ', document);
+        console.log('documentDetail---contactData----- ', contactData);
         await sendSignature(response.documentDetails, contactData , signerId);
       } else {
         sendAlert({ type: "error", message: response.message || "Failed to Get Document Details!" });
@@ -177,7 +177,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
     }
   };
 
-  const handleClick = async () => {
+  const checkSignatureStatus = async () => {
     setCheckloading(true);
     try {
       const { response } = await runServerless({
@@ -190,16 +190,10 @@ const Extension = ({ context, runServerless, sendAlert }) => {
       if (response?.success) {
         // Assuming the signature request status is available in response
         const status = response?.signatureRequests?.[0]?.status || "Unknown Status";
-        
-        sendAlert({ 
-          type: "success", 
-          message: `Signature Status is: ${status}` 
-        });
+        sendAlert({ type: "success", message: `Signature Status is: ${status}` });
         
         setSignatureStatus(status);
         setCheckloading(false);
-        
-
         console.log('Check Signature Status ------ ', response);
         
         // If you want to store the signature request ID
@@ -209,17 +203,11 @@ const Extension = ({ context, runServerless, sendAlert }) => {
           setCheckloading(false);
         }
       } else {
-        sendAlert({ 
-          type: "error", 
-          message: response?.message || "Failed to retrieve Signature Status" 
-        });
+        sendAlert({ type: "error", message: response?.message || "Failed to retrieve Signature Status" });
       }
     } catch (error) {
       console.error("Error Signature Status:", error);
-      sendAlert({ 
-        type: "error", 
-        message: `Server error while checking Signature Status. ${error.message}` 
-      });
+      sendAlert({  type: "error",  message: `Server error while checking Signature Status. ${error.message}`  });
     }
     finally {
       setCheckloading(false);
@@ -228,22 +216,43 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   
   return (
     <>
-      <Text format={{ fontWeight: "bold" }}>Press the button to send the signature request.</Text>
+      
       <Text>Contact ID: {contactId || "Not available"}</Text>
-      <Text>First Name: {contact.firstname || "Not available"}</Text>
-      <Text>Last Name: {contact.lastname || "Not available"}</Text>
-      <Text>Email: {contact.email || "Not available"}</Text>
+      <Flex gap="small">
+        <Text>First Name: {contact.firstname || "Not available"}</Text>
+        <Text>Last Name: {contact.lastname || "Not available"}</Text>
+        <Text>Email: {contact.email || "Not available"}</Text>
+      </Flex>
+      
+      <Flex gap="small">
+        <Text>Title: {contact.title || "Not available"}</Text>
+      </Flex>
+     
       <Text>Document: {contact.document || "Not available"}</Text>
-      <Text>Title: {contact.title || "Not available"}</Text>
+      
       <Text>Signer ID: {signerid || "Not available"}</Text>
       <Text>Signature ID: {signatureid || "Not available"}</Text>
       *
       <Divider />
+
+      <Text format={{ fontWeight: "bold" }}>Press the button to send the signature request.</Text>
       <Flex gap="small">
-        <Button onClick={fetchContact} variant="primary" disabled={loading}>
-          {loading ? "Sending..." : "Send Signature Request"}
+        <Button 
+            onClick={fetchContact} variant="primary" disabled={loading} loading={loading}>
+            Send Signature Request
         </Button>
       </Flex>
+      <Divider />
+      <Flex gap="small">
+        <Button
+         variant="primary" disabled={loading} 
+         onClick={checkSignatureStatus}  >
+          Check Signature Status
+        </Button>
+      </Flex>
+
+
+
       <Divider />
       {/* <Text format={{ fontWeight: "bold" }}>Copy the signature request ID, paste it into the input field below, and click on "Check Signature Status." The response will appear at the bottom along with the status.</Text>
       <Flex direction="row" align="end" gap="small">
