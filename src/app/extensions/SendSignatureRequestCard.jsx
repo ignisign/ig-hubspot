@@ -157,7 +157,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
         parameters: {
           signer_id: signerId,
           signature_requestId: signatureRequest_Ids,
-          contact_id : contactId,
+          contact_id : contactData.id,
           documents_ids : documentsIds
         },
       });
